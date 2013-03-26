@@ -9,6 +9,7 @@ Pod::Spec.new do |s|
   s.source_files = 'TPMigrationManager'
   s.requires_arc = true
 
-  s.deployment_target = '5.0'
+  s.platform = :ios, '5.0'
+
   s.frameworks = 'CoreData'
 end
