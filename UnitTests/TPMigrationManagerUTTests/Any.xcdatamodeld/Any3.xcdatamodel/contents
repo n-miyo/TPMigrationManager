@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2057" systemVersion="12C3006" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Item" representedClassName="Item" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" defaultValueString="nowhereM" syncable="YES"/>
+        <attribute name="age" attributeType="String" defaultValueString="9999" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Product" syncable="YES">
+        <attribute name="company" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isbn" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Store" syncable="YES">
+        <attribute name="reputation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Item" positionX="160" positionY="192" width="128" height="90"/>
+        <element name="Product" positionX="160" positionY="192" width="128" height="75"/>
+        <element name="Store" positionX="160" positionY="192" width="128" height="73"/>
+    </elements>
+</model>

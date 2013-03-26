@@ -1,0 +1,35 @@
+# from: http://robots.thoughtbot.com/post/33796217972/xcode-and-git-bridging-the-gap
+
+# OS X Finder
+.DS_Store
+
+# Xcode per-user config
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+*.xcworkspace
+xcuserdata
+
+# Build products
+build/
+*.o
+*.LinkFileList
+*.hmap
+
+# Automatic backup files
+*~.nib/
+*.swp
+*~
+*.dat
+*.dep
+
+# AppCode
+.idea
+
+# project related.
+Documents
+
+# EOF
