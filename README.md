@@ -48,6 +48,13 @@ to remain old persistent file, you can specify
 `TPMigrationManagerBackupPersitentStoreExtensionOption`
 option in migration method.
 
+After completing the migration, the existing persistent
+store is replaced to new one regardless of whether you use
+`TPMigrationManagerBackupPersitentStoreExtensionOption`
+option or not.  If you already have a
+NSManagedObjectContext object which is dedicated to old
+persistent store, you have to recreate it for new store.
+
 
 PLATFORM
 --------------------
