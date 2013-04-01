@@ -45,12 +45,12 @@ migration completed, the temporary persistent overwites old
 one.  If migration is terminated by cancel method or failed
 by error, old persistent remains as it is.  If you'd like
 to remain old persistent file, you can specify
-`TPMigrationManagerBackupPersitentStoreExtensionOption`
+`TPMigrationManagerBackupPersistentStoreExtensionOption`
 option in migration method.
 
 After completing the migration, the existing persistent
 store is replaced to new one regardless of whether you use
-`TPMigrationManagerBackupPersitentStoreExtensionOption`
+`TPMigrationManagerBackupPersistentStoreExtensionOption`
 option or not.  If you already have a
 NSManagedObjectContext object which is dedicated to old
 persistent store, you have to recreate it for new store.

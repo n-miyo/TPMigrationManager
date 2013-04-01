@@ -128,12 +128,12 @@ typedef NS_ENUM(NSInteger, TPMigrationManagerMigrationStatus)
  one.  If migration is terminated by cancel method or failed
  by error, old persistent remains as it is.  If you'd like
  to remain old persistent file, you can specify
- `TPMigrationManagerBackupPersitentStoreExtensionOption`
+ `TPMigrationManagerBackupPersistentStoreExtensionOption`
  option in migration method.
 
  After completing the migration, the existing persistent
  store is replaced to new one regardless of whether you use
- `TPMigrationManagerBackupPersitentStoreExtensionOption`
+ `TPMigrationManagerBackupPersistentStoreExtensionOption`
  option or not.  If you already have a
  NSManagedObjectContext object which is dedicated to old
  persistent store, you have to recreate it for new store.
@@ -271,7 +271,7 @@ typedef void(^TPMigrationManagerCompletedBlock)(NSError *error);
 
  @name Constants
 
- `TPMigrationManagerBackupPersitentStoreExtensionOption`
+ `TPMigrationManagerBackupPersistentStoreExtensionOption`
  Key to remain old persistent store.
 
  The corresponding value is an NSString object.  If you'd
@@ -282,7 +282,7 @@ typedef void(^TPMigrationManagerCompletedBlock)(NSError *error);
  this option, or the specified empty string, the old file is
  overwritten by the new one.
  */
-extern NSString * const TPMigrationManagerBackupPersitentStoreExtensionOption;
+extern NSString * const TPMigrationManagerBackupPersistentStoreExtensionOption;
 
 ///----------------
 /// @name Error Domain

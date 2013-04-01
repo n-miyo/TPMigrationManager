@@ -83,7 +83,7 @@ extern NSString * const TPMigrationManagerSpecificMappingModelOption;
 
   [manager
     migrateByInferredMappingModelWithOptions:
-      @{TPMigrationManagerBackupPersitentStoreExtensionOption:@"~~~"}
+      @{TPMigrationManagerBackupPersistentStoreExtensionOption:@"~~~"}
   completed:^(NSError *error) {
       STAssertNil(error, @"migration should not be fail.");
       AnyCoreDataManager *anman = [[AnyCoreDataManager alloc] init];
@@ -121,7 +121,7 @@ extern NSString * const TPMigrationManagerSpecificMappingModelOption;
 
   [manager
     migrateByInferredMappingModelWithOptions:
-      @{TPMigrationManagerBackupPersitentStoreExtensionOption:@"~~~"}
+      @{TPMigrationManagerBackupPersistentStoreExtensionOption:@"~~~"}
   completed:^(NSError *error) {
       STAssertNotNil(error, @"migration should be fail.");
       STAssertEqualObjects(
@@ -205,7 +205,7 @@ extern NSString * const TPMigrationManagerSpecificMappingModelOption;
     [manager
       migrateSynchronouslyWithOptions:
         @{TPMigrationManagerInferMappingModelOption:@YES,
-          TPMigrationManagerBackupPersitentStoreExtensionOption:@""}
+          TPMigrationManagerBackupPersistentStoreExtensionOption:@""}
                    error:&error];
   STAssertEquals(b, YES, @"migration failed");
 

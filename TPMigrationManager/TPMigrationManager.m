@@ -52,8 +52,8 @@ typedef NS_ENUM(NSInteger, InternalMigrationStatus)
 
 @implementation TPMigrationManager
 
-NSString * const TPMigrationManagerBackupPersitentStoreExtensionOption =
-  @"TPMigrationManagerBackupPersitentStoreExtensionOption";
+NSString * const TPMigrationManagerBackupPersistentStoreExtensionOption =
+  @"TPMigrationManagerBackupPersistentStoreExtensionOption";
 NSString * const TPMigrationManagerInferMappingModelOption =
   @"TPMigrationManagerInferMappingModelOption";
 NSString * const TPMigrationManagerSpecificMappingModelOption =
@@ -340,9 +340,9 @@ go_out:
           isEqual:@YES]) {
     inferMapping = YES;
   }
-  if (options[TPMigrationManagerBackupPersitentStoreExtensionOption]) {
+  if (options[TPMigrationManagerBackupPersistentStoreExtensionOption]) {
     backupPersitentStoreExtension =
-      options[TPMigrationManagerBackupPersitentStoreExtensionOption];
+      options[TPMigrationManagerBackupPersistentStoreExtensionOption];
     if (![backupPersitentStoreExtension length]) {
       backupPersitentStoreExtension = nil;
     }
