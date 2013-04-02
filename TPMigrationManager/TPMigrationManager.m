@@ -587,15 +587,15 @@ go_out:
   }
 }
 
-- (void)replaceItemAtPath:(NSString *)srcpath
+- (void)replaceItemAtPath:(NSString *)srcPath
                    toPath:(NSString *)dstPath
           backupExtension:(NSString *)extension
                     error:(NSError **)error
 {
   NSFileManager *man = [NSFileManager defaultManager];
   NSString *srcBackupPath =
-    [NSString stringWithFormat:@"%@%@", srcpath, extension];
-  NSString *eliminatePath = srcpath;
+    [NSString stringWithFormat:@"%@%@", srcPath, extension];
+  NSString *eliminatePath = srcPath;
   if (extension) {
     eliminatePath = srcBackupPath;
   }
@@ -608,13 +608,13 @@ go_out:
   }
   if (extension) {
     *error = nil;
-    [man moveItemAtPath:srcpath toPath:srcBackupPath error:error];
+    [man moveItemAtPath:srcPath toPath:srcBackupPath error:error];
     if (*error) {
       return;
     }
   }
   *error = nil;
-  [man moveItemAtPath:dstPath toPath:srcpath error:error];
+  [man moveItemAtPath:dstPath toPath:srcPath error:error];
 }
 
 - (BOOL)eliminateExistFileURL:(NSURL *)fileURL error:(NSError **)error
