@@ -196,24 +196,29 @@ static NSString * const currentEntityMappingKeyPath = @"currentEntityMapping";
     [self migrationStatusWithResultingSourceMetadata:&sourceMetadata
                            resultingDestinationModel:&destinationModel
                                                error:nil];
-  if (ist == InternalMigrationStatusNoManagedObjectModel) {
+  NSError *e = nil;
+  NSManagedObjectModel *sourceModel;
+  switch (ist) {
+  case InternalMigrationStatusNoManagedObjectModel:
     st = TPMigrationManagerMigrationStatusNoManagedObjectModel;
-  } else if (ist == InternalMigrationStatusSameModel) {
+    break;
+  case InternalMigrationStatusSameModel:
     st = TPMigrationManagerMigrationStatusSameModel;
-  } else if (ist == InternalMigrationStatusNoPersistentStore) {
+    break;
+  case InternalMigrationStatusNoPersistentStore:
     st = TPMigrationManagerMigrationStatusNoPersistentStore;
-  } else if (ist == InternalMigrationStatusCorruptStore) {
+    break;
+  case InternalMigrationStatusCorruptStore:
     st = TPMigrationManagerMigrationStatusCorruptedStore;
-  } else {
-    NSError *e = nil;
-    NSManagedObjectModel *sourceModel =
-      [self modelFromMetadata:sourceMetadata error:&e];
+    break;
+  default:
+    sourceModel = [self modelFromMetadata:sourceMetadata error:&e];
     BOOL infer = NO;
     BOOL specific = NO;
 
     if (e) {
       st = TPMigrationManagerMigrationStatusCorruptedStore;
-      goto go_out;
+      break;
     }
     e = nil;
     NSMappingModel *mappingModel;
@@ -240,9 +245,9 @@ static NSString * const currentEntityMappingKeyPath = @"currentEntityMapping";
     } else if (specific) {
       st = TPMigrationManagerMigrationStatusSpecificMappingModel;
     }
+    break;
   }
 
-go_out:
   return st;
 }
 
