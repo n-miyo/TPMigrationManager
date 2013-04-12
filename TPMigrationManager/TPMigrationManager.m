@@ -540,7 +540,7 @@ static NSString * const currentEntityMappingKeyPath = @"currentEntityMapping";
       mergedModelFromBundles:bundlesForModel
             forStoreMetadata:metadata];
 
-  if (model == nil) {
+  if (model == nil && error) {
     *error =
       [NSError errorWithDomain:NSCocoaErrorDomain
                           code:NSMigrationMissingSourceModelError
@@ -556,7 +556,9 @@ static NSString * const currentEntityMappingKeyPath = @"currentEntityMapping";
 {
   NSMappingModel *mappingModel = nil;
   if (inferMapping) {
-    *error = nil;
+    if (error) {
+      *error = nil;
+    }
     mappingModel =
       [NSMappingModel
         inferredMappingModelForSourceModel:sourceModel
@@ -569,7 +571,7 @@ static NSString * const currentEntityMappingKeyPath = @"currentEntityMapping";
         mappingModelFromBundles:bundlesForMappingModel
                  forSourceModel:sourceModel
                destinationModel:destinationModel];
-    if (mappingModel == nil) {
+    if (mappingModel == nil && error) {
       *error =
         [NSError errorWithDomain:NSCocoaErrorDomain
                             code:NSMigrationMissingMappingModelError
@@ -579,24 +581,27 @@ static NSString * const currentEntityMappingKeyPath = @"currentEntityMapping";
   return mappingModel;
 }
 
-- (void)eliminateWorkingStoreWithError:(NSError **)error
+- (BOOL)eliminateWorkingStoreWithError:(NSError **)error
 {
+  BOOL r = YES;
   NSURL *destinationStoreURL = self.workingStoreURL;
   BOOL exist =
     [destinationStoreURL checkResourceIsReachableAndReturnError:nil];
   if (exist) {
     // eliminate old WORKING file.
-    [[NSFileManager defaultManager]
-      removeItemAtURL:destinationStoreURL
-                error:error];
+    r = [[NSFileManager defaultManager]
+          removeItemAtURL:destinationStoreURL
+                    error:error];
   }
+  return r;
 }
 
-- (void)replaceItemAtPath:(NSString *)srcPath
+- (BOOL)replaceItemAtPath:(NSString *)srcPath
                    toPath:(NSString *)dstPath
           backupExtension:(NSString *)extension
                     error:(NSError **)error
 {
+  NSError *e;
   NSFileManager *man = [NSFileManager defaultManager];
   NSString *srcBackupPath =
     [NSString stringWithFormat:@"%@%@", srcPath, extension];
@@ -605,33 +610,44 @@ static NSString * const currentEntityMappingKeyPath = @"currentEntityMapping";
     eliminatePath = srcBackupPath;
   }
   if ([man fileExistsAtPath:eliminatePath]) {
-    *error = nil;
-    [man removeItemAtPath:eliminatePath error:error];
-    if (*error) {
-      return;
+    e = nil;
+    [man removeItemAtPath:eliminatePath error:&e];
+    if (e) {
+      if (error) {
+        *error = e;
+      }
+      return NO;
     }
   }
   if (extension) {
-    *error = nil;
-    [man moveItemAtPath:srcPath toPath:srcBackupPath error:error];
-    if (*error) {
-      return;
+    e = nil;
+    [man moveItemAtPath:srcPath toPath:srcBackupPath error:&e];
+    if (e) {
+      if (error) {
+        *error = e;
+      }
+      return NO;
     }
   }
-  *error = nil;
-  [man moveItemAtPath:dstPath toPath:srcPath error:error];
+  if (error) {
+    *error = nil;
+  }
+  return [man moveItemAtPath:dstPath toPath:srcPath error:error];
 }
 
 - (BOOL)eliminateExistFileURL:(NSURL *)fileURL error:(NSError **)error
 {
-  *error = nil;
-  BOOL exist = [fileURL checkResourceIsReachableAndReturnError:error];
+  NSError *e = nil;
+  BOOL exist = [fileURL checkResourceIsReachableAndReturnError:&e];
   if (!exist) {
     return YES;                 // no need to do.
   }
-  *error = nil;
-  [[NSFileManager defaultManager] removeItemAtURL:fileURL error:error];
-  if (error) {
+  e = nil;
+  [[NSFileManager defaultManager] removeItemAtURL:fileURL error:&e];
+  if (e) {
+    if (error) {
+      *error = e;
+    }
     return NO;
   }
   return YES;
