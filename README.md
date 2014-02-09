@@ -90,7 +90,7 @@ COPYRIGHT
 
 MIT LICENSE
 
-Copyright (c) 2013 MIYOKAWA, Nobuyoshi (http://www.tempus.org/)
+Copyright (c) 2013-2014 MIYOKAWA, Nobuyoshi (http://www.tempus.org/)
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
